@@ -1,9 +1,20 @@
 textarea {
-    min-height: 400px;
+  min-height: 400px;
 }
-.read{
-    background-color: #f0ebeb;
+
+.email-item.read {
+  background-color: #d5c4c4; /* Light grey for read emails */
 }
-.unread{
-    background-color: rgb(191, 191, 227);
+
+.email-item.unread {
+  background-color: #e0f7fa; /* Fade blue for unread emails */
 }
+
+.email-item {
+  border: 1px solid #ccc; /* Light grey border */
+  padding: 10px; /* Padding inside each email item */
+  margin-bottom: 10px; /* Space between email items */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
