@@ -47,7 +47,37 @@ function view_mail(id){
         })
       })
     }
-  })
+    
+    const btn_arch = document.createElement('button');
+    btn_arch.innerHTML = email.archived ? "Unarchived": "Archive"
+    btn_arch.className =email.archived ? "btn btn-success":"btn btn-danger"
+    btn_arch.addEventListener('click',function(){
+      fetch(`/emails/${email.id}`,{
+        method: 'PUT',
+        body: JSON.stringify({
+          archived: !email.archived
+
+        })
+        
+      })
+      .then(()=>{
+        load_mailbox('archive')
+      })
+    })
+    document.querySelector("#email-detail-view").append(btn_arch);
+    const btn_reply = document.createElement('button');
+    btn_reply.innerHTML="REPLY";
+    btn_reply.className="btn btn-info";
+    btn_reply.addEventListener('click',function(){
+      compose_email();
+      document.querySelector('#compose-recipients').value = email.sender;
+      let subject = email.subject;
+      if(subject.split('',1)[0] != "Re:")
+      document.querySelector('#compose-subject').value= subject;
+      document.querySelector('#compose-body').value =` On ${email.timestamp} ${email.sender} wrote: ${email.body}`
+    })
+    document.querySelector("#email-detail-view").append(btn_reply);
+  });
 }
 
 function load_mailbox(mailbox) {
